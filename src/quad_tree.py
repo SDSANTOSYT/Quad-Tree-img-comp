@@ -39,9 +39,9 @@ class QuadTree:
             return True
         
         # Verifica si el nodo que se va a insertar está en la mitad izquierda
-        if (self.topLeft.x + self.bottonRight.x) / 2 >= node.position.x:
+        if (self.topLeft.x + self.bottonRight.x) / 2 > node.position.x:
             # Verifica si el nodo que se va a insertar está en la mitad superior
-            if (self.topLeft.y + self.bottonRight.y) / 2 >= node.position.y:
+            if (self.topLeft.y + self.bottonRight.y) / 2 > node.position.y:
                 if self.topLeftTree is None:
                     self.topLeftTree = QuadTree(self.topLeft, Point((self.topLeft.x + self.bottonRight.x) // 2, (self.topLeft.y + self.bottonRight.y) // 2))
                 return self.topLeftTree.insert(node)
@@ -53,7 +53,7 @@ class QuadTree:
         # Verifica si el nodo que se va a insertar está en la mitad derecha
         else:
             # Verifica si el nodo que se va a insertar está en la mitad superior
-            if (self.topLeft.y + self.bottonRight.y) / 2 >= node.position.y:
+            if (self.topLeft.y + self.bottonRight.y) / 2 > node.position.y:
                 if self.topRightTree is None:
                     self.topRightTree = QuadTree(Point(math.ceil((self.topLeft.x + self.bottonRight.x) / 2), self.topLeft.y), Point(self.bottonRight.x, (self.topLeft.y + self.bottonRight.y) // 2))
                 return self.topRightTree.insert(node)
@@ -75,7 +75,7 @@ class QuadTree:
             p3 = self.bottonLeftTree.calculate_mean()
             p4 = self.bottonRightTree.calculate_mean()
             if self.node is None:
-                self.node = Node(None, Pixel(0, 0, 0))
+                self.node = Node(None, Pixel(180, 180, 180))
             self.node.color = mean_color(p1, p2, p3, p4)
             return self.node.color
     
@@ -84,9 +84,10 @@ class QuadTree:
     
     def __compress(self, current_level, level, array_img): 
         if current_level == level:
-            for i in range(self.topLeft.y, self.bottonRight.y+1):
+            array_img[self.topLeft.y:self.bottonRight.y+1, self.topLeft.x:self.bottonRight.x+1] = [self.node.color.r, self.node.color.g, self.node.color.b]
+            """for i in range(self.topLeft.y, self.bottonRight.y+1):
                 for j in range(self.topLeft.x, self.bottonRight.x+1):
-                    array_img[i][j] = [self.node.color.b, self.node.color.g, self.node.color.r]
+                    array_img[i][j] = [self.node.color.b, self.node.color.g, self.node.color.r]"""
             return array_img
         else:
             if self.topLeftTree is not None:

@@ -10,6 +10,8 @@ class QuadTree:
         self.node = None
         self.children = [None,None,None,None]
     
+    def is_leaf(self):
+        return self.children[0] is None and self.children[1] is None and self.children[2] is None and self.children[3] is None
     # Metodo para insertar un nodo en el árbol=============================================================================================
     def insert(self, node):
         # Si el tamaño del árbol es 1 (es decir del tamaño de un pixel), se inserta el nodo en el árbol
@@ -56,20 +58,24 @@ class QuadTree:
             self.node.color = np.mean([p1[0], p2[0], p3[0], p4[0]]), np.mean([p1[1], p2[1], p3[1], p4[1]]), np.mean([p1[2], p2[2], p3[2], p4[2]])
             return self.node.color
     
-    def compress(self, level):
+    def compress(self, level, tollerance):
         array_img = np.ndarray((self.size, self.size, 3), dtype=np.uint8)
-        return self.__compress(0, level, array_img)
+        return self.__compress(0, level, array_img,tollerance)
     
-    def __compress(self, current_level, level, array_img):
-        if current_level == level:
+    def __compress(self, current_level, level, array_img, tollerance):
+        if self.is_leaf() or (current_level >= level and self.is_tollerant(tollerance)) :
             array_img[self.y:self.y + self.size, self.x:self.x + self.size] = self.node.color
-            """for i in range(self.size):
-                for j in range(self.size):
-                    array_img[self.y + i][self.x + j] = [self.node.color.b, self.node.color.g, self.node.color.r]"""
         else:
             for child in self.children:
                 if child is not None:
-                    child.__compress(current_level + 1, level, array_img)
+                    child.__compress(current_level + 1, level, array_img,tollerance)
         return array_img
-        
-        
+    
+    
+    def is_tollerant(self, tollerance):
+        dist1 = self.children[0].node.calculate_distance(self.node.color)
+        dist2 = self.children[1].node.calculate_distance(self.node.color)
+        dist3 = self.children[2].node.calculate_distance(self.node.color)
+        dist4 = self.children[3].node.calculate_distance(self.node.color)
+        return dist1 < tollerance and dist2 < tollerance and dist3 < tollerance and dist4 < tollerance
+    

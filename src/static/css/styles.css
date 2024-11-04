@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #141414;
+}
+.bigcontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    gap: 40px;
+    padding: 40px;
+    .container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .container img{
+        height: 50%;
+        object-fit: cover;
+        width: 70%;
+    }
+}
+
+#input_image{
+    border-radius: 140px;
+    color: rgba(202, 199, 214, 0.829);
+}
+
+.slider_label{
+    color: rgba(112, 111, 172, 0.829);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

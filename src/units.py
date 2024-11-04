@@ -1,3 +1,4 @@
+import numpy as np
 # Clase para representar la posición de un elemento
 class Point:
     def __init__(self, x, y):
@@ -10,3 +11,5 @@ class Node:
         self.position = point
         self.color = pixel
         
+    def calculate_distance(self, pixel):
+        return np.sqrt((self.color[0] - pixel[0])**2 + (self.color[1] - pixel[1])**2 + (self.color[2] - pixel[2])**2)

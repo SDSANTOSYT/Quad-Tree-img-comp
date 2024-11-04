@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <script src="../static/js/index.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="bigcontainer">
+        <div class="container">
+            <img src="../static/diana.png" id="originalimg" alt="">
+        </div>
+        <div class="container">
+            <img src="../static/hola3.png" alt="" id="compressed">
+        </div>
+    </div>
+    
+    <div>
+        <input type="file" id="input_image" accept=".png,.jpg,.bmp" onchange="updateImage()">
+    </div>
+   
+    <div>
+        <input type="range" id="subdivision" value="0" min="0.0" max="1.0" step="0.01" onchange="compression()"><h1 class="slider_label"></h1><br>
+        <input type="range" id="threshold" min="0" max="100" value="0" step="1" onchange="compression()"><h1 class="slider_label" id="threshold_label">Threshold: 0</h1>
+    </div>
+</body>
+</html>

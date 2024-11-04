@@ -15,6 +15,6 @@ for i in range(img.shape[0]):
 quad.calculate_mean()
 
 print(quad.node.color)
-cv.imwrite("hola3.png",quad.compress(10))
+cv.imwrite("hola3.png",quad.compress(0,0))
 #cv.imshow('hola3.png', cv.imread('hola3.png'))
 #cv.waitKey(0)

@@ -3,13 +3,23 @@ const threshold = document.getElementById("threshold");
 const input_img = document.getElementById("input_image");
 let uploadComplete = false;
 
+// Actualizar el label de los sliders
+function UpdateLabel() {
+    const th_label = document.getElementById("threshold_label");
+    const subdiv_label = document.getElementById("subdivision_label");
+
+    th_label.innerText = `Threshold: ${threshold.value}`;
+    subdiv_label.innerText = `Subdivision: ${subdivision.value}`;
+}
+
+// Sube la imagen al servidor
 async function updateImage() {
     const file = input_img.files[0];
     if (!file) {
         console.log("No file selected");
         return;
     }
-
+ 
     // Deshabilitar controles durante la carga
     disableControls(true);
 
@@ -31,6 +41,10 @@ async function updateImage() {
         const result = await response.json();
         console.log("Upload complete:", result);
 
+        console.log(result['size']);
+
+        subdivision.max = Math.log2(result['size']);
+
         // Actualizar la imagen original
         const originalimg = document.getElementById("originalimg");
         originalimg.src = URL.createObjectURL(file);
@@ -47,6 +61,7 @@ async function updateImage() {
     }
 }
 
+// Comprime la imagen
 async function compression() {
     // Verificar si la imagen se subió correctamente
     if (!uploadComplete) {
@@ -58,8 +73,6 @@ async function compression() {
 
     const subdiv = subdivision.value;
     const th = threshold.value;
-    const th_label = document.getElementById("threshold_label");
-    th_label.innerText = `Threshold: ${th}`;
 
     // Deshabilitar controles durante la compresión
     disableControls(true);

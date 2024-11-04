@@ -8,6 +8,9 @@ img = None
 
 app = Flask(__name__)
 
+# Rutas====================================================================================================================================
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -22,22 +25,20 @@ def upload():
             quad.insert(Node(Point(j, i), img[i][j]))
     quad.calculate_mean()
     print(quad.node.color)
-    return jsonify({'message': 'Image uploaded successfully'})
+    return jsonify({'size': f'{img.shape[0]}'})
 
 @app.route('/compression')
 def compression():
     global quad, img
-    print(img.shape)
     if not quad or img is None:
         return jsonify({'message': 'Image not uploaded'})
     
-    subdivision = np.log2(img.shape[0]) * np.float64(request.args.get('subdiv',0))
-    print(subdivision)
+    subdivision = request.args.get('subdiv',0)
     threshold = request.args.get('th',0)
     
-    print(cv.imwrite('src/static/hola3.png',quad.compress(round(subdivision),round(int(threshold)))))
+    print(cv.imwrite('src/static/comp_img.png',quad.compress(int(subdivision),int(threshold))))
     
-    return send_file('.\\static\\hola3.png', mimetype='image/png')
+    return send_file('.\\static\\comp_img.png', mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(debug=True)

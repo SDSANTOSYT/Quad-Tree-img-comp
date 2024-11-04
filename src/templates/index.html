@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <script src="../static/js/index.js" defer></script>
-    <title>Document</title>
-</head>
-<body>
-    <div class="bigcontainer">
-        <div class="container">
-            <img src="../static/diana.png" id="originalimg" alt="">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../static/css/styles.css">
+        <script src="../static/js/index.js" defer></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="bigcontainer">
+            <div class="container">
+                <img src="../static/place-holder.png" id="originalimg">
+                <h1>imagen original</h1>
+            </div>
+            <div class="container">
+                <img src="../static/place-holder.png" alt id="compressed">
+                <h1>imagen comprimida</h1>
+            </div>
         </div>
-        <div class="container">
-            <img src="../static/hola3.png" alt="" id="compressed">
+        <div class="input_container">
+            <input type="file" id="input_image" accept=".png,.jpg,.bmp"
+                onchange="updateImage()">
+            <h1 class="slider_label" id="subdivision_label">Subdivision: 0</h1>
+            <input type="range" id="subdivision" value="0" min="0" step="1"
+                onchange="compression()" oninput="UpdateLabel()">
+            <h1 class="slider_label" id="threshold_label">Threshold: 0</h1>
+            <input type="range" id="threshold" min="0" max="254" value="0"
+                step="1" onchange="compression()" oninput="UpdateLabel()">
         </div>
-    </div>
-    
-    <div>
-        <input type="file" id="input_image" accept=".png,.jpg,.bmp" onchange="updateImage()">
-    </div>
-   
-    <div>
-        <input type="range" id="subdivision" value="0" min="0.0" max="1.0" step="0.01" onchange="compression()"><h1 class="slider_label"></h1><br>
-        <input type="range" id="threshold" min="0" max="100" value="0" step="1" onchange="compression()"><h1 class="slider_label" id="threshold_label">Threshold: 0</h1>
-    </div>
-</body>
+    </body>
 </html>

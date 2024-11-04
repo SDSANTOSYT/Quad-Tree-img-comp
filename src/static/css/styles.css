@@ -90,6 +90,7 @@ input[type=range]::-webkit-slider-runnable-track {
     border-radius: 4px;
     border: none;
 }
+
 .footer {
     background-color: #24292e;
     color: #fff;

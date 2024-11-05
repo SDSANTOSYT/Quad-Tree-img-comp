@@ -50,5 +50,10 @@ def compression():
     return send_file('.\\static\\comp_img.png', mimetype='image/png')
 
 
+# Ruta para visualizar un quadtree=========================================================================================================
+@app.route('/visualize')
+def visualize():
+    return render_template('quadtree.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,4 +1,6 @@
 // Quadtree implementation in JavaScript
+
+// Clase punto que contiene las coordenadas x, y===========================================================================================
 class Point {
     constructor(x, y) {
         this.x = x;
@@ -6,6 +8,7 @@ class Point {
     }
 }
 
+// Clase rectángulo que delimitará el espacio de cada quadtree=============================================================================
 class Rectangle {
     constructor(x, y, width, height) {
         this.x = x;
@@ -13,6 +16,7 @@ class Rectangle {
         this.width = width;
         this.height = height;
     }
+    // Método que verifica si un punto está dentro del rectángulo==========================================================================
     contains(point) {
         return point.x >= this.x - this.width &&
             point.x <= this.x + this.width &&
@@ -21,6 +25,7 @@ class Rectangle {
     }
 }
 
+// Clase QuadTree que almacena los puntos==================================================================================================
 class QuadTree {
     constructor(boundary, capacity) {
         this.boundary = boundary;
@@ -29,6 +34,7 @@ class QuadTree {
         this.divided = false;
     }
 
+    // Metodo que subdiide el quadtree en 4 cuadrantes=====================================================================================
     subdivide() {
         let x = this.boundary.x;
         let y = this.boundary.y;
@@ -45,6 +51,7 @@ class QuadTree {
         this.divided = true;
     }
 
+    // Metodo que inserta un punto en el quadtree==========================================================================================
     insert(point) {
         if (!this.boundary.contains(point)) {
             return;
@@ -62,6 +69,7 @@ class QuadTree {
         }
     }
 
+    // Metodo para dibujar el quadtree=====================================================================================================
     show() {
         stroke(255);
         strokeWeight(1);
